@@ -5,9 +5,13 @@
 	<div class="inside">
 		<div>
 			<input
-				type="checkbox" id="save_version" name="save_version" checked="checked"
+				type="checkbox"
+				id="comments-save-version"
+				name="comments-save-version"
+				checked="checked"
+				value="1"
 			/>
-			<label for="save_version">Create previous version prior to save</label>
+			<label for="save_version">Create previous version prior to update</label>
 		</div>		
 	</div>
 </div>

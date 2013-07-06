@@ -91,16 +91,20 @@ class VersionedCommentsController extends TemplateSystem
 		$commentId = (int) $_POST['comment_ID'];
 		$comment = get_comment($commentId);
 
-		// Get simplified version of old and new comment
-		$oldComment = $this->getMonitoredFields($comment);
-		$newComment = $this->getMonitoredFields($_POST);
-
-		// Only create a new version if there's a monitorable change
-		if (array_diff_assoc($oldComment, $newComment))
+		// Allow moderator to opt out of creating a version (e.g. for trivial changes)
+		if ((bool) $_POST['comments-save-version'])
 		{
-			$this->createVersion($commentId, $oldComment);
+			// Get simplified version of old and new comment
+			$oldComment = $this->getMonitoredFields($comment);
+			$newComment = $this->getMonitoredFields($_POST);
+
+			// Only create a new version if there's a monitorable change
+			if (array_diff_assoc($oldComment, $newComment))
+			{
+				$this->createVersion($commentId, $oldComment);
+			}
 		}
-		
+
 		return $commentText;
 	}
 
