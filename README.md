@@ -29,10 +29,10 @@ There's plenty of things I want to do with this:
   * Colour-based and strike-out to show what has changed
 * pagination, useful where a large number of versions are recorded
 
-Presently previous version data is stored as serialised text fields, which isn't very searchable. Thus, I might do these:
+Presently previous version data is stored as serialised PHP arrays, which aren't very searchable. Thus, I might do these:
 
 * switch to separate meta-fields for each comment for searchability
-* search screen
+* search previous versions screen
 
 Version history
 ---------------
