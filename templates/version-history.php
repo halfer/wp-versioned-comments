@@ -1,6 +1,6 @@
-<div id="comment-version-history" class="stuffbox">
+<div id="comment-version-options" class="stuffbox">
 	<h3>
-		<label>Version history</label>
+		<label>Version options</label>
 	</h3>
 	<div class="inside">
 		<div>
@@ -8,8 +8,15 @@
 				type="checkbox" id="save_version" name="save_version" checked="checked"
 			/>
 			<label for="save_version">Create previous version prior to save</label>
-		</div>
+		</div>		
+	</div>
+</div>
 
+<div id="comment-version-history" class="stuffbox">
+	<h3>
+		<label>Version history</label>
+	</h3>
+	<div class="inside">
 		<?php foreach ($commentVersions as $ord => $commentVersion): ?>
 			<fieldset>
 				<legend>
