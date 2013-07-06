@@ -45,10 +45,26 @@ class CommentModController extends TemplateSystem
 
 	/**
 	 * Upon the add_meta_boxes_comment event, renders our extra bit
+	 * 
+	 * If there is a very large number of previous versions, we ought to do some pagination or something.
+	 * However I've not added that just yet, since it is unlikely to be required in most cases.
 	 */
-	public function moderatorOptions()
+	public function moderatorOptions(stdClass $comment)
 	{
-		$this->renderTemplate('version-history');
+		// Grab all the previous versions
+		$serialisedVersions = get_comment_meta($comment->comment_ID, self::COMMENT_KEY_HISTORY);
+
+		// Unserialise all the previous comment arrays
+		$commentVersions = array();
+		foreach ($serialisedVersions as $serialisedVersion)
+		{
+			$commentVersions[] = unserialize($serialisedVersion);
+		}
+
+		$this->renderTemplate(
+			'version-history',
+			array('commentVersions' => $commentVersions,)
+		);
 	}
 
 	/**
