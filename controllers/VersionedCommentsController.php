@@ -51,6 +51,12 @@ class VersionedCommentsController extends TemplateSystem
 	 */
 	public function editCommentDialogue(stdClass $comment)
 	{
+		// Just for safety; a comment should not be amended unless the user may mod comments anyway, afaik
+		if (!$this->userCanModerateComments())
+		{
+			return;
+		}
+
 		// Grab all the previous versions
 		$serialisedVersions = get_comment_meta($comment->comment_ID, self::COMMENT_KEY_HISTORY);
 
@@ -161,5 +167,10 @@ class VersionedCommentsController extends TemplateSystem
 			'comment_author_url',
 			'comment_content'
 		);
+	}
+
+	protected function userCanModerateComments()
+	{
+		return current_user_can('moderate_comments');
 	}
 }
