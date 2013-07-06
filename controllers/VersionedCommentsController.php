@@ -4,6 +4,8 @@ class VersionedCommentsController extends TemplateSystem
 {
 	const PATH_PLUGIN_NAME = 'wp-versioned-comments';
 	const COMMENT_KEY_HISTORY = 'wp-versioned-comments-history';
+	const COMMENT_KEY_FORMAT = 'wp-versioned-comments-format';
+	const DATABASE_FORMAT = 1;
 
 	/**
 	 * Main controller entry point
@@ -128,6 +130,9 @@ class VersionedCommentsController extends TemplateSystem
 
 		// Always create a new (non-unique) meta entry for this version
 		add_comment_meta($commentId, self::COMMENT_KEY_HISTORY, serialize($oldComment));
+
+		// If it doesn't exist, write the database format code (do nothing if it already exists)
+		add_comment_meta($commentId, self::COMMENT_KEY_FORMAT, self::DATABASE_FORMAT, $_unique = true);
 	}
 
 	/**
