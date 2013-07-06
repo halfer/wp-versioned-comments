@@ -58,7 +58,19 @@ class CommentModController extends TemplateSystem
 		$commentVersions = array();
 		foreach ($serialisedVersions as $serialisedVersion)
 		{
-			$commentVersions[] = unserialize($serialisedVersion);
+			$commentVersion = unserialize($serialisedVersion);
+
+			// Look up the amending user in each case
+			$userId = array_key_exists('comment_amended_by_user_id', $commentVersion) ?
+				$commentVersion['comment_amended_by_user_id'] :
+				null;
+			if ($userId)
+			{
+				$user = get_user_by('id', $userId);
+				$commentVersion['comment_amended_by_user_name'] = $user->display_name;
+			}
+
+			$commentVersions[] = $commentVersion;
 		}
 
 		// Send the comments in reverse chrono order
@@ -100,8 +112,9 @@ class CommentModController extends TemplateSystem
 	 */
 	protected function createVersion($commentId, array $oldComment)
 	{
-		// Let's add in a timestamp too
+		// Let's add in a timestamp and current user too
 		$oldComment['comment_date'] = time();
+		$oldComment['comment_amended_by_user_id'] = get_current_user_id();
 
 		// Always create a new (non-unique) meta entry for this version
 		add_comment_meta($commentId, self::COMMENT_KEY_HISTORY, serialize($oldComment));

@@ -22,6 +22,9 @@
 				<legend>
 					Version <?php echo count($commentVersions) - $ord ?>
 					amended on <?php echo date('j M Y G:i:s', $commentVersion['comment_date'] ) ?>
+					<?php if ($commentVersion['comment_amended_by_user_name']): ?>
+						by <?php echo $commentVersion['comment_amended_by_user_name'] ?>
+					<?php endif ?>
 				</legend>
 				<div class="comment-items">
 					<span class="comment-item">
