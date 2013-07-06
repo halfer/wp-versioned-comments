@@ -14,12 +14,29 @@
 			<fieldset>
 				<legend>
 					Version <?php echo count($commentVersions) - $ord ?>
-					by <?php echo $commentVersion['comment_author'] ?>
-					<?php if ($commentVersion['comment_author_url']): ?>
-						(<?php echo $commentVersion['comment_author_url'] ?>)
-					<?php endif ?>
-					edited on <?php echo date('r', $commentVersion['comment_date'] ) ?>
+					amended on <?php echo date('j M Y G:i:s', $commentVersion['comment_date'] ) ?>
 				</legend>
+				<div class="comment-items">
+					<span class="comment-item">
+						Name: <?php echo $commentVersion['comment_author'] ?>
+					</span>
+					<span class="comment-item">
+						E-mail:
+						<?php
+							echo $commentVersion['comment_author_email'] ?
+							$commentVersion['comment_author_email'] :
+							'(empty)'
+						?>
+					</span>
+					<span class="comment-item">
+						URL:
+						<?php
+							echo $commentVersion['comment_author_url'] ?
+							$commentVersion['comment_author_url'] :
+							'(empty)'
+						?>
+					</span>
+				</div>
 				<?php echo $commentVersion['comment_content'] ?>
 			</fieldset>
 		<?php endforeach ?>

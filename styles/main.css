@@ -3,3 +3,11 @@
 	padding: 3px 6px 6px 6px;
 	margin: 8px 0;
 }
+
+#comment-version-history .comment-items {
+	margin-bottom: 6px;
+}
+
+#comment-version-history .comment-item {
+	margin-right: 30px;
+}
