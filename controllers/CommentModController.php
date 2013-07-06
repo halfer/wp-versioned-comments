@@ -61,9 +61,10 @@ class CommentModController extends TemplateSystem
 			$commentVersions[] = unserialize($serialisedVersion);
 		}
 
+		// Send the comments in reverse chrono order
 		$this->renderTemplate(
 			'version-history',
-			array('commentVersions' => $commentVersions,)
+			array('commentVersions' => array_reverse($commentVersions), )
 		);
 	}
 

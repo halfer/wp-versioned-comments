@@ -13,7 +13,7 @@
 		<?php foreach ($commentVersions as $ord => $commentVersion): ?>
 			<fieldset>
 				<legend>
-					Version <?php echo $ord + 1 ?>
+					Version <?php echo count($commentVersions) - $ord ?>
 					by <?php echo $commentVersion['comment_author'] ?>
 					<?php if ($commentVersion['comment_author_url']): ?>
 						(<?php echo $commentVersion['comment_author_url'] ?>)
