@@ -54,5 +54,10 @@
 				<?php echo $commentVersion['comment_content'] ?>
 			</fieldset>
 		<?php endforeach ?>
+
+		<?php // Here's the code if we have no versions to show ?>
+		<?php if (!$commentVersions): ?>
+			There are no previous saved versions of this comment.
+		<?php endif ?>
 	</div>
 </div>
