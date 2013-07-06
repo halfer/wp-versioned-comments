@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Comment Mod
+Plugin Name: Versioned Comments
 Description: Edit/remove comments, marking as moderated
 Version: 0.1
 Author: Jon Hinks
@@ -11,7 +11,7 @@ License: GPL2
 $root = dirname(__FILE__);
 
 require_once $root . '/vendor/TemplateSystem/TemplateSystem.php';
-require_once $root . '/controllers/CommentModController.php';
+require_once $root . '/controllers/VersionedCommentsController.php';
 
-$controller = new CommentModController( $root );
+$controller = new VersionedCommentsController( $root );
 $controller->runAll();

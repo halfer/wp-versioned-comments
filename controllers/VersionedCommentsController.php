@@ -1,9 +1,9 @@
 <?php
 
-class CommentModController extends TemplateSystem
+class VersionedCommentsController extends TemplateSystem
 {
-	const PATH_PLUGIN_NAME = 'wp-comment-mod';
-	const COMMENT_KEY_HISTORY = 'wp-comment-mod_history';
+	const PATH_PLUGIN_NAME = 'wp-versioned-comments';
+	const COMMENT_KEY_HISTORY = 'wp-versioned-comments-history';
 
 	/**
 	 * Main controller entry point
@@ -13,7 +13,7 @@ class CommentModController extends TemplateSystem
 		$this->initCss();
 		$this->initEditCommentHandler();
 
-		add_action('add_meta_boxes_comment', array($this, 'moderatorOptions'));
+		add_action('add_meta_boxes_comment', array($this, 'editCommentDialogue'));
 	}
 
 	/**
@@ -26,10 +26,10 @@ class CommentModController extends TemplateSystem
 		$relativePath = substr(plugins_url(), strlen($site));
 
 		wp_register_style(
-			'commentmod_css',
+			'versioned-comments-css',
 			$relativePath . '/' . self::PATH_PLUGIN_NAME . '/styles/main.css'
 		);
-		wp_enqueue_style('commentmod_css');		
+		wp_enqueue_style('versioned-comments-css');		
 	}
 
 	/**
@@ -49,7 +49,7 @@ class CommentModController extends TemplateSystem
 	 * If there is a very large number of previous versions, we ought to do some pagination or something.
 	 * However I've not added that just yet, since it is unlikely to be required in most cases.
 	 */
-	public function moderatorOptions(stdClass $comment)
+	public function editCommentDialogue(stdClass $comment)
 	{
 		// Grab all the previous versions
 		$serialisedVersions = get_comment_meta($comment->comment_ID, self::COMMENT_KEY_HISTORY);
