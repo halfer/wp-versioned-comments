@@ -98,8 +98,13 @@ class VersionedCommentsController extends TemplateSystem
 		// Obtain the comment ID from the form
 		$commentId = (int) $_POST['comment_ID'];
 
-		// Allow moderator to opt out of creating a version (e.g. for trivial changes)
-		$doSave = (bool) $_POST['comments-save-version'];
+		// Allow moderator to opt out of creating a version (e.g. for trivial changes). The AJAX version
+		// (i.e. Quick Edit) does not have this, so we assume the user wishes to create a version here.
+		// In the future we might offer an options panel to configure this.
+		$doSave =
+			((bool) $_POST['comments-save-version']) ||
+			$this->isAjax()
+		;
 
 		// Just for safety; a comment should not be amended unless the user may mod comments anyway, afaik
 		if ($doSave && $this->userCanModerateComments())
@@ -181,5 +186,13 @@ class VersionedCommentsController extends TemplateSystem
 	protected function userCanModerateComments()
 	{
 		return current_user_can('moderate_comments');
+	}
+
+	protected function isAjax()
+	{
+		return
+			!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+		;
 	}
 }
