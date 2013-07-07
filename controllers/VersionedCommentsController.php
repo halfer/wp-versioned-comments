@@ -1,6 +1,9 @@
 <?php
 
-class VersionedCommentsController extends TemplateSystem
+// Import this class as a unique name
+use TemplateSystem\Change2\ControllerBase as VersionedCommentsControllerBase;
+
+class VersionedCommentsController extends VersionedCommentsControllerBase
 {
 	const PATH_PLUGIN_NAME = 'wp-versioned-comments';
 	const COMMENT_KEY_HISTORY = 'wp-versioned-comments-history';

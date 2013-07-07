@@ -10,7 +10,7 @@ License: GPL2
 
 $root = dirname(__FILE__);
 
-require_once $root . '/vendor/TemplateSystem/TemplateSystem.php';
+require_once $root . '/vendor/TemplateSystem/ControllerBase.php';
 require_once $root . '/controllers/VersionedCommentsController.php';
 
 $controller = new VersionedCommentsController( $root );
