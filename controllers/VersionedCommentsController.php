@@ -97,11 +97,15 @@ class VersionedCommentsController extends TemplateSystem
 	{
 		// Obtain the comment ID from the form
 		$commentId = (int) $_POST['comment_ID'];
-		$comment = get_comment($commentId);
 
 		// Allow moderator to opt out of creating a version (e.g. for trivial changes)
-		if ((bool) $_POST['comments-save-version'])
+		$doSave = (bool) $_POST['comments-save-version'];
+
+		// Just for safety; a comment should not be amended unless the user may mod comments anyway, afaik
+		if ($doSave && $this->userCanModerateComments())
 		{
+			$comment = get_comment($commentId);
+
 			// Get simplified version of old and new comment
 			$oldComment = $this->getMonitoredFields($comment);
 			$newComment = $this->getMonitoredFields($_POST);
